@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { getDateDiff } from "../lib/api";
 import { useState } from "react";
 import RangeDisplay from "./RangeDisplay";
+import TimelineChart from "./TimelineChart";
 
 type FormData = {
   outerStart: string;
@@ -55,7 +56,16 @@ export default function DateDiffForm() {
         Submit
       </button>
 
-      <RangeDisplay ranges={result} />
+      {/* <RangeDisplay ranges={result} /> */}
+      {result.length > 0 && (
+  <>
+    <RangeDisplay ranges={result} />
+    <div className="mt-6">
+      <h3 className="text-lg font-medium mb-2">Timeline Visualization</h3>
+      <TimelineChart ranges={result} />
+    </div>
+  </>
+)}
     </form>
   );
 }
