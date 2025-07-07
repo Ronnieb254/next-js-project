@@ -33,13 +33,13 @@ Returns:
 
 ```
 
-🧪 Part 2: Backend API (Next.js + PostgreSQL)
+**🧪 Part 2: Backend API (Next.js + PostgreSQL)**
 ✅ Endpoint
-sql
-Copy
-Edit
+````sql
 GET /api/date-diff?outer=[YYYY-MM-DD,YYYY-MM-DD)&inner=[YYYY-MM-DD,YYYY-MM-DD)
-🏗️ Structure (Clean Architecture)
+```
+
+**🏗️ Structure (Clean Architecture)**
 lib/data-access/db.ts → connects to PostgreSQL
 
 lib/use-case/getDateDiff.ts → executes the SQL function
