@@ -60,13 +60,15 @@ Returns:
 
 ```
 
-**🧪 Part 2: Backend API (Next.js + PostgreSQL)**
+
+## 🧪 Part 2: Backend API (Next.js + PostgreSQL)
+
 ✅ Endpoint
 ```sql
 GET /api/date-diff?outer=[YYYY-MM-DD,YYYY-MM-DD)&inner=[YYYY-MM-DD,YYYY-MM-DD)
 ```
 
-**🏗️ Structure (Clean Architecture)**
+###**🏗️ Structure (Clean Architecture)**
 
 lib/data-access/db.ts → connects to PostgreSQL
 
@@ -74,14 +76,14 @@ lib/use-case/getDateDiff.ts → executes the SQL function
 
 pages/api/date-diff.ts → API route
 
-**🔌 Tech:**
+###**🔌 Tech:**
 PostgreSQL 13+
 
 pg library
 
 TypeScript + Next.js API Routes
 
-**🧪 Part 3: Frontend UI (Next.js App Directory)**
+## 🧪 Part 3: Frontend UI (Next.js App Directory)
 A responsive form using React Hook Form and Tailwind CSS with:
 
 📝 Date input for outer and inner ranges
@@ -90,7 +92,7 @@ A responsive form using React Hook Form and Tailwind CSS with:
 
 🧼 Clean, modular component structure
 
-💡 Features:
+### 💡 Features:
 Typed with TypeScript
 
 Form validation with react-hook-form
@@ -100,7 +102,7 @@ UI styled with Tailwind CSS
 Optional timeline/chart visualization with react-chartjs-2
 
 
-**🚀 Getting Started**
+## **🚀 Getting Started**
 **1. Clone & Install**
 ```bash
 git clone https://github.com/your-username/date-range-diff-tool.git
@@ -121,11 +123,12 @@ node create.ts
 Or run manually via DB UI/SQL CLI.
 
 **4. Run App**
-bash
+````bash
 npm run dev
+````
 Then visit: http://localhost:3000
 
-**🧼 Folder Structure**
+## **🧼 Folder Structure**
 ```bash
 
 /app
@@ -137,7 +140,7 @@ Then visit: http://localhost:3000
   /scripts            # Setup helpers
 
 ```
-**📦 Tech Stack**
+## **📦 Tech Stack**
 PostgreSQL
 
 Next.js 15 (App Router + Turbopack)
@@ -152,13 +155,15 @@ Chart.js (react-chartjs-2)
 
 Clean Architecture principles
 
-**📜 License**
+## **📜 License**
+
 MIT — free for personal & commercial use.
 
-**✨ Author**
+##**✨ Author**
+
 Veronicah Bironga
 
-**Built as part of a fullstack technical assessment.**
+### **Built as part of a fullstack technical assessment.**
 
 ---
 
