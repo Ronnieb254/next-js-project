@@ -28,12 +28,10 @@ SELECT * FROM extract_range(
 );
 Returns:
 
-yaml
-
 [2018-01-01,2018-03-01)
 (2018-03-31,2018-12-31]
 
-🧪 Part 2: Backend API (Next.js + PostgreSQL)
+**🧪 Part 2: Backend API (Next.js + PostgreSQL)**
 ✅ Endpoint
 sql
 GET /api/date-diff?outer=[YYYY-MM-DD,YYYY-MM-DD)&inner=[YYYY-MM-DD,YYYY-MM-DD)
@@ -122,9 +120,7 @@ Veronicah Bironga
 
 Built as part of a fullstack technical assessment.
 
-yaml
 
----
 
 Let me know if you'd like:
 - Deployment instructions (e.g., Vercel)
