@@ -1,37 +1,132 @@
 ![image](https://github.com/user-attachments/assets/6ed0c541-2712-4c6d-ace3-bd561b67cef7)
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 📅 Date Range Difference Tool
 
-First, run the development server:
+A full-stack TypeScript project using PostgreSQL, Next.js, and React to compute and visualize the difference between two date ranges.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+---
+
+## 🧪 Part 1: PostgreSQL Function
+
+**Function:** `extract_range(outer_range daterange, inner_range daterange)`
+
+This function returns the part(s) of `outer_range` that do not overlap with `inner_range`.
+
+### 📌 Logic:
+- Returns:
+  - Two fragments if `inner_range` is inside `outer_range`
+  - One fragment if `inner_range` overlaps the start or end
+  - Full `outer_range` if there's no overlap
+  - `NULL` if `inner_range` fully covers `outer_range`
+
+### ✅ Example:
+
+```sql
+SELECT * FROM extract_range(
+  '[2018-01-01,2018-12-31]'::daterange,
+  '[2018-03-01,2018-03-31]'::daterange
+);
+Returns:
+
+yaml
+
+[2018-01-01,2018-03-01)
+(2018-03-31,2018-12-31]
+
+🧪 Part 2: Backend API (Next.js + PostgreSQL)
+✅ Endpoint
+sql
+GET /api/date-diff?outer=[YYYY-MM-DD,YYYY-MM-DD)&inner=[YYYY-MM-DD,YYYY-MM-DD)
+🏗️ Structure (Clean Architecture)
+lib/data-access/db.ts → connects to PostgreSQL
+
+lib/use-case/getDateDiff.ts → executes the SQL function
+
+pages/api/date-diff.ts → API route
+
+🔌 Tech:
+PostgreSQL 13+
+
+pg library
+
+TypeScript + Next.js API Routes
+
+🧪 Part 3: Frontend UI (Next.js App Directory)
+A responsive form using React Hook Form and Tailwind CSS with:
+
+📝 Date input for outer and inner ranges
+
+📈 Visualization using Chart.js
+
+🧼 Clean, modular component structure
+
+💡 Features:
+Typed with TypeScript
+
+Form validation with react-hook-form
+
+UI styled with Tailwind CSS
+
+Optional timeline/chart visualization with react-chartjs-2
+
+
+
+🚀 Getting Started
+**1. Clone & Install**
+bash
+git clone https://github.com/your-username/date-range-diff-tool.git
+cd date-range-diff-tool
+pnpm install
+**2. Setup .env.local**
+ini
+DATABASE_URL=your_postgres_connection_string
+**3. Create PostgreSQL Function**
+bash
+node scripts/createFunction.js
+Or run manually via DB UI/SQL CLI.
+
+**4. Run App**
+bash
 pnpm dev
-# or
-bun dev
-```
+Then visit: http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**🧼 Folder Structure**
+bash
+/app
+  /components         # UI Components
+  /api                # API route
+  /lib
+    /data-access      # DB connection
+    /use-case         # Business logic
+  /scripts            # Setup helpers
+📦 Tech Stack
+PostgreSQL
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next.js 15 (App Router + Turbopack)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+TypeScript
 
-## Learn More
+Tailwind CSS
 
-To learn more about Next.js, take a look at the following resources:
+React Hook Form
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Chart.js (react-chartjs-2)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Clean Architecture principles
 
-## Deploy on Vercel
+📜 License
+MIT — free for personal & commercial use.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✨ Author
+Veronicah Bironga
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built as part of a fullstack technical assessment.
+
+yaml
+
+---
+
+Let me know if you'd like:
+- Deployment instructions (e.g., Vercel)
+- Docker setup
+- Screenshots or a video walkthrough added to the README
