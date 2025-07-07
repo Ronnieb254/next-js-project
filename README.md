@@ -30,14 +30,23 @@ RETURNS TABLE(range daterange)
 LANGUAGE plpgsql
 AS $$
 BEGIN
+  -- No overlap: return full outer range
   IF NOT outer_range && inner_range THEN
     RETURN QUERY SELECT outer_range;
+
+  -- Full match: return nothing (NULL)
   ELSIF inner_range @> lower(outer_range) AND inner_range @> upper(outer_range) THEN
     RETURN;
+
+  -- Inner overlaps start of outer: return right side
   ELSIF lower(inner_range) <= lower(outer_range) AND upper(inner_range) < upper(outer_range) THEN
     RETURN QUERY SELECT daterange(upper(inner_range), upper(outer_range), '[)');
+
+  -- Inner overlaps end of outer: return left side
   ELSIF lower(inner_range) > lower(outer_range) AND upper(inner_range) >= upper(outer_range) THEN
     RETURN QUERY SELECT daterange(lower(outer_range), lower(inner_range), '[)');
+
+  -- Inner is fully inside outer: return two parts
   ELSIF lower(inner_range) > lower(outer_range) AND upper(inner_range) < upper(outer_range) THEN
     RETURN QUERY
       SELECT daterange(lower(outer_range), lower(inner_range), '[)')
@@ -47,12 +56,12 @@ BEGIN
 END;
 $$;
 
-
-
 SELECT * FROM extract_range(
   '[2018-01-01,2018-12-31]'::daterange,
   '[2018-03-01,2018-03-31]'::daterange
 );
+
+
 Returns:
 
 [2018-01-01,2018-03-01)
