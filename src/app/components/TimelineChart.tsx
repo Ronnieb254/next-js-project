@@ -1,84 +1,43 @@
-"use client";
-
-import {
-  Chart as ChartJS,
-  BarElement,
-  LinearScale,
-  CategoryScale,
-  Tooltip,
-  Legend,
-  ChartOptions,
-} from "chart.js";
+// components/TimelineChart.tsx
 import { Bar } from "react-chartjs-2";
-import { parseDaterange } from "../lib/parseRange";
+import { Chart, CategoryScale, LinearScale, BarElement, Tooltip, Title } from "chart.js";
 
-ChartJS.register(BarElement, LinearScale, CategoryScale, Tooltip, Legend);
+Chart.register(CategoryScale, LinearScale, BarElement, Tooltip, Title);
 
-type Props = {
-  ranges: string[];
-};
-
-export default function TimelineChart({ ranges }: Props) {
-  const parsed = ranges
-    .map(parseDaterange)
-    .filter(Boolean)
-    .map((r, i) => {
-      const start = new Date(r!.start).getTime();
-      const end = new Date(r!.end).getTime();
-      return {
-        label: `Range ${i + 1}`,
-        start,
-        duration: end - start,
-      };
-    });
+export default function TimelineChart({ ranges }: { ranges: string[] }) {
+  const labels = ranges.map((r, i) => `Segment ${i + 1}`);
+  const durations = ranges.map(r => {
+    const [start, end] = r.replace(/\[|\]|\(|\)/g, "").split(",");
+    const diff = (new Date(end).getTime() - new Date(start).getTime()) / (1000 * 60 * 60 * 24);
+    return Math.max(diff, 1); // Ensure at least 1 day
+  });
 
   const data = {
-    labels: parsed.map((r) => r.label),
+    labels,
     datasets: [
       {
-        label: "Start (invisible)",
-        data: parsed.map((r) => r.start),
-        backgroundColor: "transparent",
-        stack: "stack1",
-      },
-      {
-        label: "Duration",
-        data: parsed.map((r) => r.duration),
-        backgroundColor: "rgba(59, 130, 246, 0.6)",
-        stack: "stack1",
+        label: "Duration (days)",
+        data: durations,
+        backgroundColor: "rgba(59, 130, 246, 0.5)",
+        borderColor: "rgba(59, 130, 246, 1)",
+        borderWidth: 1,
       },
     ],
   };
 
-  const options: ChartOptions<"bar"> = {
-    indexAxis: "y",
+  const options = {
     responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            const idx = context.dataIndex;
-            const start = parsed[idx].start;
-            const end = parsed[idx].start + parsed[idx].duration;
-            const startStr = new Date(start).toISOString().split("T")[0];
-            const endStr = new Date(end).toISOString().split("T")[0];
-            return `${startStr} → ${endStr}`;
-          },
-        },
-      },
-    },
+    maintainAspectRatio: false, // allows fixed height
     scales: {
-      x: {
-        type: "linear",
-        ticks: {
-          callback: function (val: number | string) {
-            return new Date(+val).toISOString().split("T")[0];
-          },
-        },
+      y: {
+        beginAtZero: true,
       },
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return (
+    <div className="w-full max-w-lg h-100 mx-auto">
+      <Bar data={data} options={options} />
+    </div>
+  );
 }

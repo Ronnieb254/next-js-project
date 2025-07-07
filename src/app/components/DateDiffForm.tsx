@@ -25,47 +25,90 @@ export default function DateDiffForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-md mx-auto p-4">
-      <h2 className="text-xl font-bold">Date Range Difference</h2>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-100 py-12 px-4 md:px-8">
+      <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl p-10 md:p-12 space-y-10 border border-blue-100">
+        <header className="text-center space-y-2">
+          <h1 className="text-4xl font-extrabold text-blue-700">📅 Date Range Diff Tool</h1>
+          <p className="text-gray-600 text-lg">Understand and visualize how two date ranges differ</p>
+        </header>
 
-      <div>
-        <label className="block">Outer Range Start</label>
-        <input type="date" {...register("outerStart", { required: true })} className="border p-1 w-full" />
-        {errors.outerStart && <span className="text-red-500 text-sm">Required</span>}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+          {/* OUTER RANGE */}
+          <fieldset className="bg-gray-50 border border-gray-200 p-6 rounded-lg shadow-sm">
+            <legend className="text-base font-semibold text-gray-700">🟦 Outer Range</legend>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+              <div>
+                <label className="block text-sm text-gray-700 mb-2">Start Date</label> 
+                <input
+                  type="date"
+                  {...register("outerStart", { required: true })}
+                  className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+                {errors.outerStart && <p className="text-red-500 text-sm mt-1">Required</p>}
+              </div>
+              <div>
+                <label className="block text-sm text-gray-700 mb-1">End Date</label>
+                <input
+                  type="date"
+                  {...register("outerEnd", { required: true })}
+                  className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+                {errors.outerEnd && <p className="text-red-500 text-sm mt-1">Required</p>}
+              </div>
+            </div>
+          </fieldset>
+
+          {/* INNER RANGE */}
+          <fieldset className="bg-gray-50 border border-gray-200 p-6 rounded-lg shadow-sm">
+            <legend className="text-base font-semibold text-gray-700">🟨 Inner Range</legend>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+              <div>
+                <label className="block text-sm text-gray-700 mb-2">Start Date</label>
+                <input
+                  type="date"
+                  {...register("innerStart", { required: true })}
+                  className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+                {errors.innerStart && <p className="text-red-500 text-sm mt-1">Required</p>}
+              </div>
+              <div>
+                <label className="block text-sm text-gray-700 mb-1">End Date</label>
+                <input
+                  type="date"
+                  {...register("innerEnd", { required: true })}
+                  className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+                {errors.innerEnd && <p className="text-red-500 text-sm mt-1">Required</p>}
+              </div>
+            </div>
+          </fieldset>
+
+          {/* SUBMIT */}
+          <div className="text-center">
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-2.5 px-8 rounded-full shadow-md transition-all"
+            >
+              ✨ Calculate Difference
+            </button>
+          </div>
+        </form>
+
+        {/* RESULT SECTION */}
+        {result.length > 0 && (
+          <section className="border-t border-gray-200 pt-8 space-y-8">
+            <div className="px-2">
+              <RangeDisplay ranges={result} />
+            </div>
+            <div className="pt-4 px-2">
+              <h3 className="text-lg font-semibold text-gray-800 text-center">📊 Timeline Visualization</h3>
+              <div className="overflow-x-auto max-w-full">
+                <TimelineChart ranges={result} />
+              </div>
+            </div>
+          </section>
+        )}
       </div>
-
-      <div>
-        <label className="block">Outer Range End</label>
-        <input type="date" {...register("outerEnd", { required: true })} className="border p-1 w-full" />
-        {errors.outerEnd && <span className="text-red-500 text-sm">Required</span>}
-      </div>
-
-      <div>
-        <label className="block">Inner Range Start</label>
-        <input type="date" {...register("innerStart", { required: true })} className="border p-1 w-full" />
-        {errors.innerStart && <span className="text-red-500 text-sm">Required</span>}
-      </div>
-
-      <div>
-        <label className="block">Inner Range End</label>
-        <input type="date" {...register("innerEnd", { required: true })} className="border p-1 w-full" />
-        {errors.innerEnd && <span className="text-red-500 text-sm">Required</span>}
-      </div>
-
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        Submit
-      </button>
-
-      {/* <RangeDisplay ranges={result} /> */}
-      {result.length > 0 && (
-  <>
-    <RangeDisplay ranges={result} />
-    <div className="mt-6">
-      <h3 className="text-lg font-medium mb-2">Timeline Visualization</h3>
-      <TimelineChart ranges={result} />
     </div>
-  </>
-)}
-    </form>
   );
 }
