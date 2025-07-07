@@ -68,7 +68,7 @@ Returns:
 GET /api/date-diff?outer=[YYYY-MM-DD,YYYY-MM-DD)&inner=[YYYY-MM-DD,YYYY-MM-DD)
 ```
 
-###**🏗️ Structure (Clean Architecture)**
+### **🏗️ Structure (Clean Architecture)**
 
 lib/data-access/db.ts → connects to PostgreSQL
 
@@ -76,7 +76,7 @@ lib/use-case/getDateDiff.ts → executes the SQL function
 
 pages/api/date-diff.ts → API route
 
-###**🔌 Tech:**
+### **🔌 Tech:**
 PostgreSQL 13+
 
 pg library
@@ -159,7 +159,7 @@ Clean Architecture principles
 
 MIT — free for personal & commercial use.
 
-##**✨ Author**
+## **✨ Author**
 
 Veronicah Bironga
 
