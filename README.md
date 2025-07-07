@@ -31,7 +31,7 @@ Returns:
 [2018-01-01,2018-03-01)
 (2018-03-31,2018-12-31]
 
-
+```
 
 **🧪 Part 2: Backend API (Next.js + PostgreSQL)**
 ✅ Endpoint
@@ -128,3 +128,4 @@ Let me know if you'd like:
 - Deployment instructions (e.g., Vercel)
 - Docker setup
 - Screenshots or a video walkthrough added to the README
+
