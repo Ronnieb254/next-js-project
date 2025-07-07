@@ -33,9 +33,11 @@ Returns:
 
 ```
 
-**🧪 Part 2: Backend API (Next.js + PostgreSQL)**
+🧪 Part 2: Backend API (Next.js + PostgreSQL)
 ✅ Endpoint
 sql
+Copy
+Edit
 GET /api/date-diff?outer=[YYYY-MM-DD,YYYY-MM-DD)&inner=[YYYY-MM-DD,YYYY-MM-DD)
 🏗️ Structure (Clean Architecture)
 lib/data-access/db.ts → connects to PostgreSQL
@@ -69,29 +71,39 @@ UI styled with Tailwind CSS
 
 Optional timeline/chart visualization with react-chartjs-2
 
-
+🖼️ Screenshot
 
 🚀 Getting Started
-**1. Clone & Install**
+1. Clone & Install
 bash
+Copy
+Edit
 git clone https://github.com/your-username/date-range-diff-tool.git
 cd date-range-diff-tool
 pnpm install
-**2. Setup .env.local**
+2. Setup .env.local
 ini
+Copy
+Edit
 DATABASE_URL=your_postgres_connection_string
-**3. Create PostgreSQL Function**
+3. Create PostgreSQL Function
 bash
+Copy
+Edit
 node scripts/createFunction.js
 Or run manually via DB UI/SQL CLI.
 
-**4. Run App**
+4. Run App
 bash
+Copy
+Edit
 pnpm dev
 Then visit: http://localhost:3000
 
-**🧼 Folder Structure**
+🧼 Folder Structure
 bash
+Copy
+Edit
 /app
   /components         # UI Components
   /api                # API route
@@ -122,10 +134,16 @@ Veronicah Bironga
 
 Built as part of a fullstack technical assessment.
 
+yaml
+Copy
+Edit
 
+---
 
 Let me know if you'd like:
 - Deployment instructions (e.g., Vercel)
 - Docker setup
 - Screenshots or a video walkthrough added to the README
+
+
 
